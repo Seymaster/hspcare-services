@@ -2,9 +2,9 @@ import smtplib,ssl
 
 port = 465 
 smtp_server = "smtp.gmail.com"
-sender_email = "myers12919@gmail.com"
-password = "English2018"
-receiver_email = "alugbinoluwaseyi1@gmail.com"
+sender_email = "urmail@gmail.com"
+password = "urpassword"
+receiver_email = "receiver@gmail.com"
 mesbody = "How are you doing"
 message = f"Subject : Hello  \n\n  {mesbody}"
 
