@@ -5,7 +5,7 @@ DEBUG = True
 
 # Globally database configuration
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SQLALCHEMY_DATABASE_URI = 'mysql://seymaster:London009@db4free.net:3306/hspbookings'
+SQLALCHEMY_DATABASE_URI = 'mysql://seymaster512:London009@db4free.net:3306/hspbookings'
 SQLACHEMY_TRACK_MODIFICATIONS = True
 
 
