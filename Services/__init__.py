@@ -12,16 +12,16 @@ import datetime
 
 
 """ Application settings"""
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__,instance_relative_config=True)
 app.config.update(dict(
     DEBUG = True,
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = 587,
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'myers12919@gmail.com',
-    MAIL_PASSWORD = 'EVerything_123',
-    MAIL_DEFAULT_SENDER = 'myers12919@gmail.com'
+    MAIL_USERNAME = 'squadbytevoluteers@gmail.com',
+    MAIL_PASSWORD = 'English2018',
+    MAIL_DEFAULT_SENDER = 'squadbytevoluteers@gmail.com'
 ))
 
 api = Api(app)

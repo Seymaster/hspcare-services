@@ -1,5 +1,6 @@
-import datetime
 import os
+import datetime
+
 
 DEBUG = True
 
@@ -15,9 +16,9 @@ MAIL_PORT = 587
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True 
 MAIL_DEBUG = True
-MAIL_DEFAULT_SENDER = "myers12919@gmail.com"
-MAIL_USERNAME = 'myers12919@gmail.com'
-MAIL_PASSWORD = "EVerything_123"
+MAIL_DEFAULT_SENDER = "squadbytevoluteers@gmail.com"
+MAIL_USERNAME = "squadbytevoluteers@gmail.com"
+MAIL_PASSWORD = "English2018"
 
 
 #  locally database configuration
