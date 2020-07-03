@@ -1,8 +1,10 @@
 import os
 import datetime
+from instance.setins import sqlusername,sqlpassword
 
 
 DEBUG = True
+
 
 # Globally database configuration
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

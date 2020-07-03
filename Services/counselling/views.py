@@ -3,7 +3,7 @@ from flask_restful import Resource,reqparse
 from Services import db
 from Services.models import Counselling,json
 from Services.medlog.mail import send_email
-from instance.config import sup_email
+from instance.setins import sup_email
 import json
 
 # middleware

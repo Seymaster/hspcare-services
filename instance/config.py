@@ -1,6 +1,6 @@
 import os
 import datetime
-
+from instance.setins import sqlusername,sqlpassword
 
 DEBUG = True
 
@@ -21,9 +21,3 @@ MAIL_USERNAME = "squadbytevoluteers@gmail.com"
 MAIL_PASSWORD = "English2018"
 
 
-#  locally database configuration
-# SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost/service1'
-# SQLACHEMY_TRACK_MODIFICATIONS = False
-
-# Support email
-sup_email = "alugbinoluwaseyi1@gmail.com"
