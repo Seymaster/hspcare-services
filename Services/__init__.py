@@ -50,7 +50,7 @@ from Services.medlog.views import Medlogapi
 from Services.forlog.views import Foreignlogapi
 from Services.longtermcare.views import Longtermlogapi
 from Services.counselling.views import Counselapi
-api.add_resource(Medlogapi, '/medical-logistics/make-booking')
-api.add_resource(Foreignlogapi, '/foreign-logistics/make-booking')
-api.add_resource(Longtermlogapi, '/long-term-support/make-booking')
-api.add_resource(Counselapi, '/counselling/make-booking')
+api.add_resource(Medlogapi, '/api/make-booking')
+api.add_resource(Foreignlogapi, '/api/make-booking')
+api.add_resource(Longtermlogapi, '/api/make-booking')
+api.add_resource(Counselapi, '/api/make-booking')
