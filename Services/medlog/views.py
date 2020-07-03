@@ -18,7 +18,7 @@ parser = reqparse.RequestParser()
 
 
 class Medlogapi(Resource):
-    url = "https://services-staging.tm30.net/3ps/v1/services"
+    
 
     def get(self):
         return "Landing page"
@@ -32,6 +32,7 @@ class Medlogapi(Resource):
         parser.add_argument("email", type=str,required=True)
         parser.add_argument("marital", type=str,required=True)
         args = parser.parse_args()
+        url = "https://services-staging.tm30.net/3ps/v1/services"
         if all([args.get(field, False) for field in ["fullname", "dob","phone","address","email","marital"]]):
             book = Bookings(fullname = args["fullname"], dob = args["dob"], phone = args["phone"],
                          address = args["address"],email = args["email"],marital = args["marital"])
@@ -51,7 +52,7 @@ class Medlogapi(Resource):
                 headers = {
                     'client_Id': '3TUxIEopcO3diIKs88uYEemWgvC4ja5ASsfDeqOQPUT4bi9wKBFX8YQ99G08BX3Nw9chw7jafDRmnAtsuCLxeTcLznytqxE8OLhkz4Q3bYBa5ZXoX2xrVNDE8SficsXXgkTXJZn9i9I1oeTFL7Yf0h8iuwc8yhLX63kGBcLHjcHfewWfj4izUck4Nh5YuCKTaH7UqScJLPcYn5YtGuBZC3A2gsNb9382WODWuOfBY9X9IlA30NR0c10q3dVAxzq4j94TisG2oSPmaaKpLPWSi8IdHXnson6Qhx9DhZxpvp53'
                 }
-                requests.request("POST", url, headers=headers, data = emailpayload)
+                requests.request("POST", url, headers=headers, data = emailPayload)
                 return {
                     "status": 200,
                     "message": "Booking successful",
