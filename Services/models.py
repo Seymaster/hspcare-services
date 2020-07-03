@@ -6,25 +6,18 @@ from datetime import datetime
 
 class Bookings(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
-    fullname      = db.Column(db.String(128))
+    fullname      = db.Column(db.String(120))
     dob           = db.Column(db.Integer)
-    phone         = db.Column(db.Integer,unique=True)
-    address       = db.Column(db.String(200),nullable=False)
     email         = db.Column(db.String(64), unique=True, index=True)
-    marital       = db.Column(db.String(64),nullable=False)
     date          = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
-    def __init__(self,fullname,dob,phone,address,email,marital):
+    def __init__(self,fullname,dob,email):
         self.fullname = fullname
         self.dob = dob
-        self.phone = phone
-        self.address = address
-        self.email    = email
-        self.marital = marital
+        self.email = email
 
     def json(self):
-        return {'fullname': self.fullname, 'dob': self.dob, 'phone': self.phone, 'address': self.address,
-            'email': self.email,'marital': self.marital}
+        return {'fullname': self.fullname, 'dob': self.dob, 'email': self.email}
 
 
 class Foreignlog(db.Model):

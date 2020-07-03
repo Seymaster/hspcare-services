@@ -4,6 +4,7 @@ from Services import db
 from Services.models import Longtermcare,json
 from Services.medlog.mail import send_email
 from instance.setins import sup_email
+import requests
 import json
 
 parser = reqparse.RequestParser()
@@ -18,17 +19,35 @@ class Longtermlogapi(Resource):
         parser.add_argument("dob", type=int,required=True)
         parser.add_argument("email", type=str,required=True)
         args = parser.parse_args()
+        url = "https://services-staging.tm30.net/3ps/v1/services"
         if all([args.get(field, False) for field in ["fullname","dob","email"]]):
             longtermbook = Longtermcare(fullname = args["fullname"], dob = args["dob"], email = args["email"])
             longtermbook_json = longtermbook.json()
-            db.session.add(longtermbook)
-            db.session.commit()
-            subject = f"{longtermbook.fullname} you just made a booking, booking ID;"
-            html = f"{longtermbook.fullname} made a booking with booking number"
-            send_email(sup_email,subject,html)
-            return {
-                "status": 200,
-                "message": "Booking successful",
-                "user"   : longtermbook_json
-                },200
+            try:
+                db.session.add(longtermbook)
+                db.session.commit()
+                bookid = generate_random_number()
+                subject = f"{longtermbook.fullname} you just made a booking, booking ID: {bookid}"
+                html = f"{longtermbook.fullname} Your order for booking with booking number: {bookid} has been received"
+                emailPayload = {
+                    "provider":"sendgrid",
+                    "subject":subject,
+                    "recipients":[sup_email],
+                    "body":html
+                    }
+                headers = {
+                    'client_Id': '3TUxIEopcO3diIKs88uYEemWgvC4ja5ASsfDeqOQPUT4bi9wKBFX8YQ99G08BX3Nw9chw7jafDRmnAtsuCLxeTcLznytqxE8OLhkz4Q3bYBa5ZXoX2xrVNDE8SficsXXgkTXJZn9i9I1oeTFL7Yf0h8iuwc8yhLX63kGBcLHjcHfewWfj4izUck4Nh5YuCKTaH7UqScJLPcYn5YtGuBZC3A2gsNb9382WODWuOfBY9X9IlA30NR0c10q3dVAxzq4j94TisG2oSPmaaKpLPWSi8IdHXnson6Qhx9DhZxpvp53'
+                }
+                requests.request("POST", url, headers=headers, data = emailPayload)
+                return {
+                    "status": 200,
+                    "message": "Booking successful",
+                    "user"   : longtermbook_json
+                    },200
+            except IntegrityError:
+                db.session.rollback()
+                return {
+                    "status": 200,
+                    "message": "User already exists"
+                },400
         return {"status": "BAD REQUEST"},404
