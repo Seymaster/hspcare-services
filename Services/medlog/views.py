@@ -33,17 +33,23 @@ class Medlogapi(Resource):
             book = Bookings(fullname = args["fullname"], dob = args["dob"], phone = args["phone"],
                          address = args["address"],email = args["email"],marital = args["marital"])
             book_json = book.json()
-            # try:
-            db.session.add(book)
-            db.session.commit()
-            bookid = generate_random_number()
-            subject = f"{book.fullname} you just made a booking, booking ID; {bookid}"
-            html = f"{book.fullname} Your order for booking with booking number {bookid} has been received"
-            send_email(sup_email,subject,html)
-            return {
-                "status": 200,
-                "message": "Booking successful",
-                "user"   : book_json
-                },200
+            try:
+                db.session.add(book)
+                db.session.commit()
+                bookid = generate_random_number()
+                subject = f"{book.fullname} you just made a booking, booking ID: {bookid}"
+                html = f"{book.fullname} Your order for booking with booking number: {bookid} has been received"
+                send_email(sup_email,subject,html)
+                return {
+                    "status": 200,
+                    "message": "Booking successful",
+                    "user"   : book_json
+                    },200
+            except IntegrityError:
+                db.session.rollback()
+                return {
+                    "status": 200,
+                    "message": "User already exists"
+                },302
         return {"status": "BAD REQUEST"},404
                     

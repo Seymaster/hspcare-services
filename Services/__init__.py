@@ -44,6 +44,7 @@ Migrate(app,db)
 
 
 
+
 # Endpoints
 from Services.medlog.views import Medlogapi
 from Services.forlog.views import Foreignlogapi

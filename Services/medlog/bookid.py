@@ -1,10 +1,8 @@
 """ generates random numner to be used as booking ID """
 
-from random import random
-# from random import randint
-import math
+import uuid
 
 def generate_random_number():
-    r = random()
-    return r
-print(generate_random_number())
+    id = uuid.uuid4()
+    return id.node
+# print(generate_random_number())
