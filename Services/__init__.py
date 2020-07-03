@@ -4,7 +4,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api
-from flask_mail import Mail
 import datetime
 
 
@@ -13,23 +12,8 @@ import datetime
 
 """ Application settings"""
 app = Flask(__name__,instance_relative_config=True)
-app.config.update(dict(
-    DEBUG = True,
-    MAIL_SERVER = 'smtp.gmail.com',
-    MAIL_PORT = 587,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'squadbytevoluteers@gmail.com',
-    MAIL_PASSWORD = 'English2018',
-    MAIL_DEFAULT_SENDER = 'squadbytevoluteers@gmail.com'
-))
-
 api = Api(app)
 
-
-
-"""   Flask Mail Settings """
-mail = Mail(app)
 
 
 

@@ -4,16 +4,15 @@ from Services.medlog.bookid import generate_random_number
 
 
 
-def send_email(from_db):
+def send_email(from_db,recipient):
     url = "https://services-staging.tm30.net/3ps/v1/services"
-    sup_email = sup_email
     bookid = generate_random_number()
     subject = f"{from_db} you just made a booking, booking ID: {bookid}"
     html = f"{from_db} Your order for booking with booking number: {bookid} has been received"
     emailPayload = {
             "provider":"sendgrid",
             "subject":subject,
-            "recipients":[sup_email],
+            "recipients":[recipient],
             "body":html
             }
     headers = {
