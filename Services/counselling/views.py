@@ -1,3 +1,7 @@
+""" views.py , its receives user input and send a email to the 
+    application support email that a user just made a booking 
+"""
+
 from flask import request,jsonify,Response
 from flask_restful import Resource,reqparse
 from Services import db
@@ -38,8 +42,10 @@ class Counselapi(Resource):
                     "body":html
                     }
                 headers = {
-                    'client_Id': '3TUxIEopcO3diIKs88uYEemWgvC4ja5ASsfDeqOQPUT4bi9wKBFX8YQ99G08BX3Nw9chw7jafDRmnAtsuCLxeTcLznytqxE8OLhkz4Q3bYBa5ZXoX2xrVNDE8SficsXXgkTXJZn9i9I1oeTFL7Yf0h8iuwc8yhLX63kGBcLHjcHfewWfj4izUck4Nh5YuCKTaH7UqScJLPcYn5YtGuBZC3A2gsNb9382WODWuOfBY9X9IlA30NR0c10q3dVAxzq4j94TisG2oSPmaaKpLPWSi8IdHXnson6Qhx9DhZxpvp53'
-                }
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'client-id': 'humber'
+                        }
                 requests.request("POST", url, headers=headers, data = emailPayload)
                 return {
                     "status": 200,
