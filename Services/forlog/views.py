@@ -19,9 +19,7 @@ parser = reqparse.RequestParser()
 
 
 class Foreignlogapi(Resource):
-    def get(self):
-        return "Landing page for foreign logistics"
-
+    
     def post(self):
         parser.add_argument("fullname", type=str ,required=True)
         parser.add_argument("dob", type=int,required=True)

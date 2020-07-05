@@ -10,7 +10,7 @@ from Services.medlog.bookid import generate_random_number
 def send_mail(from_db, recipient):
         url = "https://staging.api.humbergames.com/notifications/v1/email"
         bookid = generate_random_number()
-        subject = f"{from_db} you just made a booking, booking ID: {bookid}"
+        subject = f"{from_db} you just made a booking, (booking ID: {bookid})"
         html = f"{from_db} Your order for booking with booking number: {bookid} has been received"
         emailPayload = {
                 "provider": "sendgrid",

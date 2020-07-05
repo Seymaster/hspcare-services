@@ -16,9 +16,7 @@ parser = reqparse.RequestParser()
 
 
 class Longtermlogapi(Resource):
-    def get(self):
-        return "Landing page for Longterm logistics"
-
+    
     def post(self):
         parser.add_argument("fullname", type=str ,required=True)
         parser.add_argument("dob", type=int,required=True)
