@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 
 
+
 """ Application settings"""
 app = Flask(__name__,instance_relative_config=True)
 api = Api(app)
