@@ -40,11 +40,5 @@ cors = CORS(app)
 # networkerror()
 
 # Endpoints
-from Services.medlog.views import Medlogapi
 from Services.forlog.views import Foreignlogapi
-from Services.longtermcare.views import Longtermlogapi
-from Services.counselling.views import Counselapi
-api.add_resource(Medlogapi, '/api/medlog/make-booking')
-api.add_resource(Foreignlogapi, '/api/forlog/make-booking')
-api.add_resource(Longtermlogapi, '/api/longtermcare/make-booking')
-api.add_resource(Counselapi, '/api/counselling/make-booking')
+api.add_resource(Foreignlogapi, '/api/v1/forlog/make-booking')

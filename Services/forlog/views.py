@@ -6,7 +6,7 @@ from flask import request,jsonify,Response
 from flask_restful import Resource,reqparse
 from Services import db
 from Services.models import Foreignlog,json
-from Services.medlog.mail import send_mail
+from mail import send_mail
 from instance.setins import sup_email
 from sqlalchemy.exc import IntegrityError,OperationalError,InternalError
 import requests
@@ -21,11 +21,11 @@ parser = reqparse.RequestParser()
 class Foreignlogapi(Resource):
     
     def post(self):
-        parser.add_argument("fullname", type=str ,required=True)
-        parser.add_argument("dob", type=int,required=True)
-        parser.add_argument("email", type=str,required=True)
+        parser.add_argument("treatmentType", type=str ,required=True)
+        parser.add_argument("country", type=int,required=True)
+        parser.add_argument("preferredDate", type=str,required=True)
         args = parser.parse_args()
-        if all([args.get(field, False) for field in ["fullname","dob","email"]]):
+        if all([args.get(field, False) for field in ["treatmentType","country","prefferedDate"]]):
             foreignbook = Foreignlog(fullname = args["fullname"], dob = args["dob"], email = args["email"])
             foreignbook_json = foreignbook.json()
             try:

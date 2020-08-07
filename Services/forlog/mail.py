@@ -5,7 +5,7 @@ mail.py: This integrates the third-party API and receives data from Db as well a
 
 import requests
 import json
-from Services.medlog.bookid import generate_random_number
+from bookid import generate_random_number
 
 def send_mail(from_db, recipient):
         url = "https://staging.api.humbergames.com/notifications/v1/email"
