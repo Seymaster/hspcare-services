@@ -30,14 +30,6 @@ Migrate(app,db)
 # To allow cross-origin 
 cors = CORS(app)
 
-# Error handling
-# def networkerror():
-#     if OperationalError:
-#         return jsonify({
-#             "status": 500,
-#             "message": "Check your internet"
-#         })
-# networkerror()
 
 # Endpoints
 from Services.forlog.views import Foreignlogapi

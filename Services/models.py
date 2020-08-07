@@ -5,18 +5,18 @@ from datetime import datetime
 
 class Foreignlog(db.Model):
     id               = db.Column(db.Integer, primary_key=True)
-    treatmenttype    = db.Column(db.String(120))
+    treatmentType    = db.Column(db.String(120))
     country          = db.Column(db.Integer)
     pda              = db.Column(db.String(64), unique=True, index=True)
     date             = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
-    def __init__(self,fullname,dob,email):
-        self.fullname = fullname
-        self.dob = dob
-        self.email = email
+    def __init__(self,treatmentType,country,pda):
+        self.treatmentType = treatmentType
+        self.country       = country
+        self.pda           = pda
 
     def json(self):
-        return {'fullname': self.fullname, 'dob': self.dob, 'email': self.email}
+        return {'treatmentType': self.treatmentType, 'country': self.country, 'pda': self.pda}
 
 
 
@@ -25,10 +25,10 @@ class Contactus(db.Model):
     firstname     = db.Column(db.String(25))
     lastname      = db.Column(db.String(25))
     email         = db.Column(db.String(64), unique=True, index=True)
-    message       = db.Column(db.String(250))
+    message       = db.Column(db.String(500))
     date          = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
-    def __init__(self,fullname,dob,email):
+    def __init__(self,firstname,lastname,email,message):
         self.firstname = firstname
         self.lastname  = lastname
         self.email     = email

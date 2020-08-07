@@ -5,13 +5,13 @@ mail.py: This integrates the third-party API and receives data from Db as well a
 
 import requests
 import json
-from Services.forlog.bookid import generate_random_number
+from bookid import generate_random_number
 
-def send_mail(recipient):
+def send_mail(from_db, recipient):
         url = "https://staging.api.humbergames.com/notifications/v1/email"
         bookid = generate_random_number()
-        subject = f"you just made a booking, (booking ID: {bookid})"
-        html = f"Your order for booking with booking number: {bookid} has been received"
+        subject = f"{from_db} you just made a booking, (booking ID: {bookid})"
+        html = f"{from_db} Your order for booking with booking number: {bookid} has been received"
         emailPayload = {
                 "provider": "sendgrid",
                 "subject": subject,
