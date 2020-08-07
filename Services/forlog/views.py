@@ -24,16 +24,21 @@ class Foreignlogapi(Resource):
         parser.add_argument("country",       type=str,required=True)
         parser.add_argument("preferredDate", type=str,required=True)
         args = parser.parse_args()
-        if all([args.get(field, False) for field in ["treatmentType","country","prefferedDate"]]):
+        if all([args.get(field, False) for field in ["treatmentType","country","preferredDate"]]):
             foreignbook = Foreignlog(treatmentType= args["treatmentType"], country = args["country"], pda = args["preferredDate"])
             foreignbook_json = foreignbook.json()
             try:
                 db.session.add(foreignbook)
                 db.session.commit()
                 send_mail(recipient=sup_email)
-                return {
-                    "status": 200,
+                return {"status": 200,
                     "message": "Booking successful",
                     "user"   : foreignbook_json
                     },200
+            except IntegrityError:
+                db.session.rollback()
+                return {
+                    "status": 200,
+                    "message": "Order already exists"
+                },400
         return {"status": "BAD REQUEST"},404

@@ -33,4 +33,6 @@ cors = CORS(app)
 
 # Endpoints
 from Services.forlog.views import Foreignlogapi
-api.add_resource(Foreignlogapi, '/api/v1/forlog/make-booking')
+from Services.contactus.views import Contactusapi
+api.add_resource(Foreignlogapi, '/api/v1/forlog')
+api.add_resource(Contactusapi,'/api/v1/contact-us')

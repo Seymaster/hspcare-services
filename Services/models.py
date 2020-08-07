@@ -6,8 +6,8 @@ from datetime import datetime
 class Foreignlog(db.Model):
     id               = db.Column(db.Integer, primary_key=True)
     treatmentType    = db.Column(db.String(120))
-    country          = db.Column(db.Integer)
-    pda              = db.Column(db.String(64), index=True)
+    country          = db.Column(db.String(30))
+    pda              = db.Column(db.String((10)))
     date             = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
     def __init__(self,treatmentType,country,pda):
@@ -25,7 +25,7 @@ class Contactus(db.Model):
     firstname     = db.Column(db.String(25))
     lastname      = db.Column(db.String(25))
     email         = db.Column(db.String(64),index=True)
-    message       = db.Column(db.String(500))
+    message       = db.Column(db.String(500), unique=True)
     date          = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
     def __init__(self,firstname,lastname,email,message):

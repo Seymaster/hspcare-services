@@ -27,7 +27,13 @@ class Contactusapi(Resource):
                 send_mail(contactus.firstname,recipient=sup_email)
                 return {
                     "status": 200,
-                    "message": "Booking successful",
+                    "message": "Message sent successful",
                     "user"   : contactus_json
-                    },200
+                    },200            
+            except IntegrityError:
+                db.session.rollback()
+                return {
+                    "status": 200,
+                    "message": "Message sent already"
+                },400
         return {"status": "BAD REQUEST"},404
