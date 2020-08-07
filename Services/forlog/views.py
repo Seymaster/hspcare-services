@@ -9,7 +9,6 @@ from Services.models import Foreignlog,json
 from Services.forlog.mail import send_mail
 from instance.setins import sup_email
 from sqlalchemy.exc import IntegrityError,OperationalError,InternalError
-import requests
 import json
 
 
@@ -37,10 +36,4 @@ class Foreignlogapi(Resource):
                     "message": "Booking successful",
                     "user"   : foreignbook_json
                     },200
-            except IntegrityError:
-                db.session.rollback()
-                return {
-                    "status": 200,
-                    "message": "User already exists"
-                },400
         return {"status": "BAD REQUEST"},404

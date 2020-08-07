@@ -7,7 +7,7 @@ class Foreignlog(db.Model):
     id               = db.Column(db.Integer, primary_key=True)
     treatmentType    = db.Column(db.String(120))
     country          = db.Column(db.Integer)
-    pda              = db.Column(db.String(64), unique=True, index=True)
+    pda              = db.Column(db.String(64), index=True)
     date             = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
     def __init__(self,treatmentType,country,pda):
@@ -24,7 +24,7 @@ class Contactus(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
     firstname     = db.Column(db.String(25))
     lastname      = db.Column(db.String(25))
-    email         = db.Column(db.String(64), unique=True, index=True)
+    email         = db.Column(db.String(64),index=True)
     message       = db.Column(db.String(500))
     date          = db.Column(db.DateTime,nullable=True,default=datetime.now())
 
