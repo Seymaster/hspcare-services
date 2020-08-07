@@ -1,3 +1,3 @@
 sup_email = "alugbinoluwaseyi1@gmail.com"
-sqlusername = "seymaster009"
-sqlpassword = "Alugbin512"
+sqlusername = "seymaster002"
+sqlpassword = "Folake2020"
