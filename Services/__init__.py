@@ -1,8 +1,7 @@
 """ init.py """
 
 from flask import Flask,jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from mongoengine import connect
 from flask_restful import Api
 from flask_cors import CORS
 
@@ -22,10 +21,7 @@ api = Api(app)
 """ Database and migration mini settings"""
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
-app.config['SQLALCHEMY_DATABASE_URI']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-db = SQLAlchemy(app)
-Migrate(app,db)
+connect(host = app.config['MONGOURI'])
 
 # To allow cross-origin 
 cors = CORS(app)

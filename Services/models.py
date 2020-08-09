@@ -1,46 +1,27 @@
-from Services import db
-from Services import Migrate
+import mongoengine as medb
 import json
 from datetime import datetime
 
-class Foreignlog(db.Model):
-    id               = db.Column(db.Integer, primary_key=True)
-    userId           = db.Column(db.String(120))
-    treatmentType    = db.Column(db.String(120))
-    country          = db.Column(db.String(30))
-    pda              = db.Column(db.String((10)))
-    date             = db.Column(db.DateTime,nullable=True,default=datetime.now())
+class Foreignlog(medb.Document):
+    userId        = medb.StringField(required=True, max_length=100,unique=True)
+    treatmentType = medb.StringField(required=True)
+    country       = medb.StringField(required=True, max_length=40)
+    pda           = medb.StringField(required=True)
+    createdAt     = medb.DateTimeField(default=datetime.utcnow)
 
-    def __init__(self,treatmentType,country,pda):
-        self.treatmentType = treatmentType
-        self.country       = country
-        self.pda           = pda
 
     def json(self):
         return {'treatmentType': self.treatmentType, 'country': self.country, 'pda': self.pda}
 
 
 
-class Contactus(db.Model):
-    id            = db.Column(db.Integer, primary_key=True)
-    firstname     = db.Column(db.String(25))
-    lastname      = db.Column(db.String(25))
-    email         = db.Column(db.String(64),index=True)
-    message       = db.Column(db.String(500), unique=True)
-    date          = db.Column(db.DateTime,nullable=True,default=datetime.now())
+class Contactus(medb.Document):
+    firstname = medb.StringField(required=True,max_length=50)
+    lastname  = medb.StringField(required=True,max_length=50)
+    email     = medb.EmailField(required=True,max_length=50)
+    message   = medb.StringField(required=True,max_length=500,unique = True)
+    createdAt = medb.DateTimeField(default=datetime.utcnow)
 
-    def __init__(self,firstname,lastname,email,message):
-        self.firstname = firstname
-        self.lastname  = lastname
-        self.email     = email
-        self.message   = message
 
     def json(self):
         return {'firstname': self.firstname,'lastname': self.lastname, 'email': self.email, 'message': self.message}
-
-
-
-
-
-
-db.create_all()

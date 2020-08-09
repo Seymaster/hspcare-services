@@ -3,12 +3,11 @@
 """
 
 from flask import request,jsonify,Response
-from flask_restful import Resource,reqparse
-from Services import db
+from flask_restful import Resource,reqparse,inputs
 from Services.models import Foreignlog,json
 from Services.forlog.mail import send_mail
 from instance.setins import sup_email
-from sqlalchemy.exc import IntegrityError,OperationalError,InternalError
+from mongoengine.errors import FieldDoesNotExist,ValidationError,NotUniqueError
 import json
 
 
@@ -20,7 +19,7 @@ parser = reqparse.RequestParser()
 class Foreignlogapi(Resource):
     
     def post(self):
-        parser.add_argument("userId",        location='headers',type=int,required=True)
+        parser.add_argument("userId",        location='headers',type=str,required=True)
         parser.add_argument("treatmentType", type=str,required=True)
         parser.add_argument("country",       type=str,required=True)
         parser.add_argument("preferredDate", type=str,required=True)
@@ -29,17 +28,19 @@ class Foreignlogapi(Resource):
             foreignbook = Foreignlog(userId = args["userId"],treatmentType= args["treatmentType"], country = args["country"], pda = args["preferredDate"])
             foreignbook_json = foreignbook.json()
             try:
-                db.session.add(foreignbook)
-                db.session.commit()
+                foreignbook.save()
                 send_mail(recipient=sup_email)
                 return {"status": 200,
                     "message": "Booking successful",
                     "user"   : foreignbook_json
                     },200
-            except IntegrityError:
-                db.session.rollback()
+            except NotUniqueError as e:
+                x = str(e)
+                y = x.split()
+                z = y[13]
+                message = f'{z[0:6]} already exist'
                 return {
-                    "status": 200,
-                    "message": "Order already exists"
-                },400
+                    "status": 500,
+                    "message": message
+                },500
         return {"status": "BAD REQUEST"},404

@@ -1,6 +1,5 @@
 from flask import request,jsonify,Response
 from flask_restful import Resource,reqparse
-from Services import db
 from Services.contactus.mail import send_mail
 from instance.setins import sup_email
 from Services.models import Contactus,json
@@ -22,18 +21,20 @@ class Contactusapi(Resource):
             contactus = Contactus(firstname= args["firstname"], lastname= args["lastname"],email= args["email"], message= args["message"])
             contactus_json = contactus.json()
             try:
-                db.session.add(contactus)
-                db.session.commit()
+                contactus.save()
                 send_mail(contactus.firstname,recipient=sup_email)
                 return {
                     "status": 200,
                     "message": "Message sent successful",
                     "user"   : contactus_json
                     },200            
-            except IntegrityError:
-                db.session.rollback()
+            except NotUniqueError as e:
+                x = str(e)
+                y = x.split()
+                z = y[13]
+                message = f'{z[0:6]} already exist'
                 return {
-                    "status": 200,
-                    "message": "Message sent already"
-                },400
+                    "status": 500,
+                    "message": message
+                },500
         return {"status": "BAD REQUEST"},404
