@@ -20,12 +20,13 @@ parser = reqparse.RequestParser()
 class Foreignlogapi(Resource):
     
     def post(self):
+        parser.add_argument("userId",        location='headers',type=int,required=True)
         parser.add_argument("treatmentType", type=str,required=True)
         parser.add_argument("country",       type=str,required=True)
         parser.add_argument("preferredDate", type=str,required=True)
         args = parser.parse_args()
         if all([args.get(field, False) for field in ["treatmentType","country","preferredDate"]]):
-            foreignbook = Foreignlog(treatmentType= args["treatmentType"], country = args["country"], pda = args["preferredDate"])
+            foreignbook = Foreignlog(userId = args["userId"],treatmentType= args["treatmentType"], country = args["country"], pda = args["preferredDate"])
             foreignbook_json = foreignbook.json()
             try:
                 db.session.add(foreignbook)

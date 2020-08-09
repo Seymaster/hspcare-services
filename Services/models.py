@@ -5,6 +5,7 @@ from datetime import datetime
 
 class Foreignlog(db.Model):
     id               = db.Column(db.Integer, primary_key=True)
+    userId           = db.Column(db.String(120))
     treatmentType    = db.Column(db.String(120))
     country          = db.Column(db.String(30))
     pda              = db.Column(db.String((10)))
