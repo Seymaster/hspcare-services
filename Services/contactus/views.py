@@ -10,6 +10,15 @@ import json
 parser = reqparse.RequestParser()
 
 class Contactusapi(Resource):
+    def get(self):
+        contactus = Contactus.objects()
+        data = [contactus.json() for contact in contactus]
+        # print(data)
+        return jsonify({
+                "status" :200,
+                "message": "Fetched All contact-us",
+                "data" :  {"data": data}
+            }),200
 
     def post(self):
         parser.add_argument("firstname",type=str,required=True)

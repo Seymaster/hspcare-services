@@ -1,5 +1,4 @@
 """ init.py """
-
 from flask import Flask,jsonify
 from mongoengine import connect
 from flask_restful import Api
@@ -23,10 +22,9 @@ app.config.from_object('config')
 app.config.from_pyfile('config.py')
 connect(host = app.config['MONGOURI'])
 
+
 # To allow cross-origin 
 cors = CORS(app)
-
-
 # Endpoints
 from Services.forlog.views import Foreignlogapi
 from Services.contactus.views import Contactusapi

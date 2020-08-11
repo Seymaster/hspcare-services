@@ -17,7 +17,17 @@ parser = reqparse.RequestParser()
 
 
 class Foreignlogapi(Resource):
+    def get(self):
+        foreignlog = Foreignlog.objects()
+        data = [foreignlog.json() for forlog in foreignlog]
+        # print(data)
+        return jsonify({
+                "status" :200,
+                "message": "Fetched All contact-us",
+                "data" :  data
+            }),200
     
+
     def post(self):
         parser.add_argument("userId",        location='headers',type=str,required=True)
         parser.add_argument("treatmentType", type=str,required=True)
@@ -44,3 +54,5 @@ class Foreignlogapi(Resource):
                     "message": message
                 },500
         return {"status": "BAD REQUEST"},404
+
+        
