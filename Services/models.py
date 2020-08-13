@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 
 class Foreignlog(medb.Document):
-    userId        = medb.StringField(required=True, max_length=100,unique=True)
+    userId        = medb.StringField(required=True, max_length=100)
     treatmentType = medb.StringField(required=True)
     country       = medb.StringField(required=True, max_length=40)
     pda           = medb.StringField(required=True)
